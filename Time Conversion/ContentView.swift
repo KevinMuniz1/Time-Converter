@@ -37,7 +37,7 @@ struct ContentView: View {
         }
         let input = userInput * inputMultiplier
         let output = input * outputMultiplier
-        return "\(output) \(timeUnitOutput.lowercased())"
+        return "\(output.formatted()) \(timeUnitOutput.lowercased())"
     }
     
     var body: some View {
