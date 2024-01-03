@@ -8,12 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var userInput: Int = 0
+    @State var userInput: Double = 0
     @State var timeUnitInput = "Seconds"
     @State var timeUnitOutput = "Minutes"
     private var timeChoices = ["Seconds", "Minutes", "Hours", "Days" ]
-    
-    
+    var result: String {
+        let inputMultiplier: Double
+        let outputMultiplier: Double
+        switch timeUnitInput {
+        case "Minutes":
+            inputMultiplier = 60
+        case "Hours":
+            inputMultiplier = 3600
+        case "Days":
+            inputMultiplier = 86400
+        default:
+            inputMultiplier = 1
+        }
+        switch timeUnitOutput {
+        case "Minutes":
+            outputMultiplier = 1/60
+        case "Hours":
+            outputMultiplier = 1/3600
+        case "Days":
+            outputMultiplier = 1/86400
+        default:
+            outputMultiplier = 1
+        }
+        let input = userInput * inputMultiplier
+        let output = input * outputMultiplier
+        return "\(output) \(timeUnitOutput.lowercased())"
+    }
     
     var body: some View {
         NavigationStack {
@@ -32,11 +57,11 @@ struct ContentView: View {
                         }
                     }.pickerStyle(.segmented)
                 }
-                Section("Enter Conversion Input") {
+                Section("Amount to convert") {
                     TextField("Enter an amount", value: $userInput, format: .number)
                 }
-                Section("Time Conversion result") {
-                    Text("Output")
+                Section("Result") {
+                    Text(result)
                 }
             }.navigationTitle("Time Conversion")
         }
