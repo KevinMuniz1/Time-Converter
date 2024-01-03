@@ -11,6 +11,7 @@ struct ContentView: View {
     @State var userInput: Double = 0
     @State var timeUnitInput = "Seconds"
     @State var timeUnitOutput = "Minutes"
+    @FocusState var isFocused: Bool
     private var timeChoices = ["Seconds", "Minutes", "Hours", "Days" ]
     var result: String {
         let inputMultiplier: Double
@@ -59,11 +60,18 @@ struct ContentView: View {
                 }
                 Section("Amount to convert") {
                     TextField("Enter an amount", value: $userInput, format: .number)
-                }
+                }.focused($isFocused)
                 Section("Result") {
                     Text(result)
                 }
             }.navigationTitle("Time Conversion")
+                .toolbar {
+                    if isFocused {
+                        Button("Done"){
+                            isFocused = false
+                        }
+                    }
+                }
         }
     }
 }
