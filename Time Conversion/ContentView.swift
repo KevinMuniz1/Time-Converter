@@ -60,7 +60,9 @@ struct ContentView: View {
                 }
                 Section("Amount to convert") {
                     TextField("Enter an amount", value: $userInput, format: .number)
-                }.focused($isFocused)
+                    
+                }.keyboardType(.decimalPad)
+                .focused($isFocused)
                 Section("Result") {
                     Text(result)
                 }
